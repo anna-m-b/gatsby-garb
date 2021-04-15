@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 
-const GET_IMAGEDATA = graphql`
+const GET_FILES = graphql`
   query SiteImagesQuery {
     allFile {
       edges {
@@ -20,7 +20,7 @@ const GET_IMAGEDATA = graphql`
 `
 
 const Page3 = () => {
-  const data = useStaticQuery(GET_IMAGEDATA)
+  const data = useStaticQuery(GET_FILES)
   return (
     <Layout>
       <h1>Image File Data</h1>

@@ -6,8 +6,8 @@ const PostTemplate = path.resolve("./src/templates/post-template.js")
 // the value of the slug will be the path name e.g.  /post-one/
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
-  if (node.internal.type === "markdownRemark") {
-    const slug = createFilePath({ node, getNode, basePath: "posts" })
+  if (node.internal.type === "MarkdownRemark") {
+    const slug = createFilePath({ node, getNode, basePath: "markdown-pages" })
     createNodeField({
       node,
       name: "slug",
@@ -23,7 +23,7 @@ exports.createPages = async ({ graphql, actions }) => {
       allMarkdownRemark {
         edges {
           node {
-            fields {
+           fields {
               slug
             }
           }
