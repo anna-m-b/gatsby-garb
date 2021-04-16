@@ -6,7 +6,7 @@ import Layout from "../components/layout"
 
 const GET_FILES = graphql`
   query SiteImagesQuery {
-    allFile {
+    allFile(filter: { sourceInstanceName: { eq: "images" } }) {
       edges {
         node {
           relativePath

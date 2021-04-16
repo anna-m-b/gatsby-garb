@@ -9,6 +9,7 @@ const PostTemplate = ({ data: post }) => (
   </Layout>
 )
 
+// this gets passed to PostTemplate - but how, where?
 export const query = graphql`
   query($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
