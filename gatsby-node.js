@@ -3,6 +3,7 @@ const path = require("path")
 
 const PostTemplate = path.resolve("./src/templates/post-template.js")
 const BlogTemplate = path.resolve("./src/templates/blog-template.js")
+const ProductTemplate = path.resolve("./src/templates/product-template.js")
 // this will create a fields field on the node field with a slug field attached that we can query with GraphQl.
 // the value of the slug will be the path name e.g.  /post-one/
 exports.onCreateNode = ({ node, getNode, actions }) => {
@@ -27,6 +28,14 @@ exports.createPages = async ({ graphql, actions }) => {
             fields {
               slug
             }
+          }
+        }
+      }
+
+      allContentfulProduct {
+        edges {
+          node {
+            slug
           }
         }
       }
@@ -61,6 +70,18 @@ exports.createPages = async ({ graphql, actions }) => {
         isLastPage,
         totalPages,
         currentPage,
+      },
+    })
+  })
+
+  const products = result.data.allContentfulProduct.edges
+
+  products.forEach(({ node: product }) => {
+    createPage({
+      path: `products-page/${product.slug}`,
+      component: ProductTemplate,
+      context: {
+        slug: product.slug,
       },
     })
   })

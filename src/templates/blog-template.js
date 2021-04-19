@@ -1,11 +1,9 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
 import "./blog.css"
-
 import Layout from "../components/layout"
 
 const BlogTemplate = ({ data, pageContext }) => {
-  console.log(pageContext)
   const { allMarkdownRemark } = data
   const { currentPage, isFirstPage, isLastPage, totalPages } = pageContext
   console.log({ totalPages }, { isLastPage })
@@ -26,6 +24,9 @@ const BlogTemplate = ({ data, pageContext }) => {
               </Link>
               {node.frontmatter.date}
             </h3>
+            <p>
+              {node.timeToRead} {node.timeToRead > 1 ? "minutes" : "minute"}
+            </p>
             <p>{node.excerpt}</p>
           </div>
         )
@@ -70,9 +71,10 @@ export const query = graphql`
           id
           frontmatter {
             title
-            date
+            date(fromNow: true)
           }
-          excerpt
+          excerpt(format: MARKDOWN, pruneLength: 120, truncate: false)
+          timeToRead
         }
       }
     }
